@@ -1,33 +1,25 @@
 // Variables
-const formulario = document.querySelector('#formulario');
-const listaTweets = document.querySelector("#lista-tweets")
+const formulario    = document.querySelector('#formulario');
+const listaTweets   = document.querySelector("#lista-tweets")
 let tweets = []; // para almacenar los tweets creamos un arreglo vacio
 
 // Event Listeners
 eventListeners();
 function eventListeners(){
-    // Cuando el usuario agrega un nuevo tweet
-    formulario.addEventListener('submit', agregarTweet);
-
+    formulario.addEventListener('submit', agregarTweet); // Cuando el usuario agrega un nuevo tweet
     // Cuando el documento está listo
     document.addEventListener('DOMContentLoaded', () => {
         tweets = JSON.parse(localStorage.getItem('tweets')) || []; // para que tweets no se asigne como null en caso de no encontrar twwets almacenados
         console.log(tweets);
-
         crearHTML();
     });
 }
 
-
-
-
 // Funciones
 function agregarTweet(e){
     e.preventDefault();
-
     // TextArea donde el usuario escribe
     const tweet = document.querySelector('#tweet').value; // .value para obtener el texto ingresado en el textArea
-    
     // Validación...
     if(tweet === ''){
         mostrarError('Un mensaje no puede ir vacío');
@@ -41,11 +33,9 @@ function agregarTweet(e){
 
     // Añadir al arreglo de tweets
     tweets = [...tweets, tweetObj];
+    crearHTML(); // una vez agregado el tweet al arreglo creamos el HTML
 
-    // una vez agregado el tweet al arreglo creamos el HTML
-    crearHTML();
-
-    // Reiniciar le fomrulario
+    // Reiniciar le formulario
     formulario.reset();
 }
 
